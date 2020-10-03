@@ -1,0 +1,12 @@
+<% @posts.each do |post| %>
+  <h2><%= link_to "#{post.user.name} posts: ", user_path(post.user) %></h2>
+  <%= post.body %><br>
+
+  <% if current_user.posts.include?(post) %>
+    <%= link_to 'Edit', edit_post_path(post) %>
+    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+    ================================================================================
+  <% end %><br><br>
+  <%= render 'comments/new_comment', post: post %>
+<% end %><br><br>
+

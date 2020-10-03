@@ -1,0 +1,6 @@
+<%= form_with model: Post.new, local: true do |f| %>
+  <%= f.hidden_field :user_id %>
+  <%= f.label "Post:" %>
+  <%= f.text_area :body %> <br>
+  <%= f.submit %>
+<% end %>

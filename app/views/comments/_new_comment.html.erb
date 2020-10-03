@@ -1,0 +1,7 @@
+<%= form_with model: current_user.comments.new, url: comments_path, method: :post, local: true do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :post_id, value: post.id %>
+  <%= f.label "Comment:" %>
+  <%= f.text_area :body %><br>
+  <%= f.submit %>
+<% end %>

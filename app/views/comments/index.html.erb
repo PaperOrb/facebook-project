@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+<% comments.each do |comment| %>
+  <%= comment.body %>
+  <%= comment.user_id %>
+  <%= comment.post_id %>
+
+  <% if current_user.comments.include?(comment) %>
+    <%= link_to 'Edit', edit_comment_path(comment) %>
+    <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
+<br>

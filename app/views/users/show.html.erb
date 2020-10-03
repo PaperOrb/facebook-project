@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+<h1><%= "#{@user.name}'s wall" %></h1>
+<% if @user == current_user %>
+  <%= render template: "posts/new" %>
+<% end %><br><br><br>
+
+<%= render template: "posts/index", posts: @user.posts %>
