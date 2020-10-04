@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params) # need to pass post to this comment, then give comment.post.user.id to the redirect below 
-    @user_id = @comment.post.user.id
     require 'pry'; binding.pry
 
     respond_to do |format|
@@ -12,7 +11,7 @@ class CommentsController < ApplicationController
         format.json { render :show, status: :created, location: @comment }
       else
         flash.now[:alert] = "Error creating post"
-        format.html { redirect_to controller: 'users', action: 'show', id: @user_id, notice: 'Comment was successfully created.' }
+        format.html { redirect_to controller: 'users', action: 'show', id: params[:id], notice: 'Comment was successfully created.' }
         
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
@@ -35,6 +34,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:body, :user_id, :post_id)
+      params .permit(:body, :user_id, :post_id)
     end
 end
