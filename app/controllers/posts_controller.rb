@@ -53,10 +53,11 @@ class PostsController < ApplicationController
     end
   end
 
-  def destroy # add deletes associated comments/likes to fix FK violation. then add like functionality
+  def destroy
+    @user = User.find(current_user.id)
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to @user, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

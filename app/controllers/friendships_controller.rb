@@ -7,22 +7,11 @@ class FriendshipsController < ApplicationController
     @friendships = Friendship.all
   end
 
-  # GET /friendships/1
-  # GET /friendships/1.json
-  def show
-  end
-
   # GET /friendships/new
   def new
     @friendship = Friendship.new
   end
 
-  # GET /friendships/1/edit
-  def edit
-  end
-
-  # POST /friendships
-  # POST /friendships.json
   def create
     @friendship = Friendship.new(friendship_params)
 
