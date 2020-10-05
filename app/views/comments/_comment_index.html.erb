@@ -1,12 +1,13 @@
-<p id="notice"><%= notice %></p>
-<% comments.each do |comment| %>
+<%# is there a way to pass locals to comments#index view so it can be used instead of this duplicate partial? %>
+<% post.comments.each do |comment| %>
+  <b><%= "#{comment.user_id} commented: " %></b>
   <%= comment.body %>
-  <%= comment.user_id %>
-  <%= comment.post_id %>
+
 
   <% if current_user.comments.include?(comment) %>
     <%= link_to 'Edit', edit_comment_path(comment) %>
     <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
+  <br><br>
 <% end %>
 <br>

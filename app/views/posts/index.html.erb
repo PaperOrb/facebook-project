@@ -7,6 +7,7 @@
     <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %><br>
     ================================================================================
   <% end %><br><br>
+  <%= render 'comments/comment_index', post: post %>
   <%= render 'comments/new_comment', post: post %>
 <% end %><br><br>
 

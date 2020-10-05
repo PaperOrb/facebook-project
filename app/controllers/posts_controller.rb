@@ -53,9 +53,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
-  def destroy
+  def destroy # add deletes associated comments/likes to fix FK violation. then add like functionality
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
