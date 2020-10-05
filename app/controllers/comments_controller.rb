@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def create
-    @comment = current_user.comments.new(comment_params) # need to pass post to this comment, then give comment.post.user.id to the redirect below 
+    @comment = current_user.comments.new(comment_params)
     @user_id = @comment.user.id
 
     respond_to do |format|
