@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+  # used this guide for learning about setting up friendships: https://smartfunnycool.com/friendships-in-activerecord/
   before_action :set_friendship, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -11,16 +12,18 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    require 'pry'; binding.pry
+    user = User.find_by(id: friendship_params[:user_id])
+    friend = User.find_by(id: friendship_params[:friend_id])
     @friendship = Friendship.new(friendship_params)
 
     respond_to do |format|
-      if @friendship.save
-        format.html { redirect_to @friendship, notice: 'Friendship was successfully created.' }
-        format.json { render :show, status: :created, location: @friendship }
-      else
-        format.html { render :new }
+      require 'pry'; binding.pry
+      if user.friends.include?(friend)
+        #format.html { redirect_to friendships_path, notice: "#{friend.name} is already a friend!"  }
         format.json { render json: @friendship.errors, status: :unprocessable_entity }
+      else
+        format.html { redirect_to friendships_path, notice: 'Friend request sent!' }
+        format.json { render :show, status: :created, location: @friendship }
       end
     end
   end

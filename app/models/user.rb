@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :friendships # finds records with you as the user_id to see pending_friends you've sent
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id" # finds records with you as the friend_id to see friend_requests to you
-  # this is how you call it: u1.friendships.create(user_id: u1.id, friend_id: u2.id)
+  # this is how you create a friendship: u1.friendships.create(user_id: u1.id, friend_id: u2.id)
 
   has_many :posts
   has_many :comments
@@ -31,9 +31,5 @@ class User < ApplicationRecord
     friendship = inverse_friendships.find { |fship| fship.user == user }
     friendship.confirmed = true
     friendship.save
-  end
-
-  def friend?(user)
-    friends.include?(user)
   end
 end

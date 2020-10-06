@@ -8,8 +8,9 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
+      <% @user = User.find(user.id) %>
         <td><%= link_to "#{user.name}", user_path(user) %></td>
-        <td><%= link_to 'Add friend', friendships_path(user, friendship: {friend_id: "#{user.id}", user_id: "#{current_user.id}"}), method: :post %></td>
+        <td><%= link_to 'Add friend', friendships_path(@user, format: "html", friendship: {friend_id: "#{user.id}", user_id: "#{current_user.id}"}), method: :post %></td> # the format param is "1" instead of html due to link_to. why?
       </tr>
     <% end %>
   </tbody>
