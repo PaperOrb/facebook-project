@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Users</h1>
 
@@ -8,9 +7,21 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-      <% @user = User.find(user.id) %>
         <td><%= link_to "#{user.name}", user_path(user) %></td>
-        <td><%= link_to 'Add friend', friendships_path(@user, format: "html", friendship: {friend_id: "#{user.id}", user_id: "#{current_user.id}"}), method: :post %></td> # the format param is "1" instead of html due to link_to. why?
+
+        <% next if user == current_user %>
+        <% if current_user.friends.include?(user) %>
+          <td><%= "Already friends!" %></td>
+        <% elsif current_user.sent_friend_requests.include?(user) %>
+          <td><%= 'Friend request sent.' %></td>
+        <% elsif current_user.received_friend_requests.include?(user) %>
+          <td>
+            <%= 'Accept friend request?' %>
+            <%= link_to 'No', friendship_path(user, id: "#{current_user.id}", format: "html"), method: :delete %>
+          </td>
+        <% else %>
+          <td><%= link_to 'Add friend', friendships_path(user, format: "html", friendship: {friend_id: user.id, user_id: current_user.id}), method: :post %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(comment_params)
     @user = @comment.post.user
-
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @user, notice: 'Comment was successfully created.' }
