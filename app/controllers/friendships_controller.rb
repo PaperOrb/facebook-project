@@ -17,7 +17,6 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.new(friendship_params)
     require 'pry'; binding.pry
 
-
     respond_to do |format|
       if user.friends.include?(friend)
         format.html { redirect_to users_path, notice: "#{friend.name} is already a friend!"  }

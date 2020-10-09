@@ -20,7 +20,7 @@
             <%= link_to 'No', friendship_path(user, id: "#{current_user.id}", format: "html"), method: :delete %>
           </td>
         <% else %>
-          <td><%= link_to 'Add friend', friendships_path(user, format: "html", friendship: {friend_id: user.id, user_id: current_user.id}), method: :post %></td>
+          <td><%= link_to 'Add friend', friendships_path(user, format: "html", friendship: {friend_id: user.id, user_id: current_user.id}), method: :post %></td> # line is not creating new friends. troubleshoot create action
         <% end %>
       </tr>
     <% end %>
