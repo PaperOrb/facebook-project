@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
+  gem 'guard-rspec'
 end
 
 group :development do
@@ -49,7 +50,6 @@ group :development do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-doc'
-  gem 'guard'
 end
 
 group :test do

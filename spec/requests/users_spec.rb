@@ -1,4 +1,6 @@
- require 'rails_helper'
+# adapt these basic integration tests to check request params when view files change.
+
+require 'rails_helper'
 
 RSpec.describe "/posts", type: :request do
   # Post. As you add validations to Post, be sure to
