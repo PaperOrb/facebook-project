@@ -10,14 +10,15 @@
       <tr>
         <td><%= link_to "#{user.name}", user_path(user) %></td>
         <% if current_user.friends.include?(user) %>
-          <td><%= "Already friends!" %></td>
+          <% require 'pry'; binding.pry %>
+          <td><%= link_to 'Remove friend', friendship_remove_friend_path(@users.first, format: 'html'), method: :delete %></td> # why is confirm causing undefined error messages?
         <% elsif current_user.sent_friend_requests.include?(user) %>
           <td><%= 'Friend request sent.' %></td>
         <% elsif current_user.received_friend_requests.include?(user) %>
           <% friends_hash = { user_id: user.id, friend_id: current_user.id } %>
           <td>
             <%= 'Accept friend request?' %>
-            <%= link_to 'Yes / ', friendship_confirm_friend_path(user, id: "#{current_user.id}", friendship: friends_hash, format: "html"), method: :post %>
+            <%= link_to 'Yes / ', friendship_confirm_friend_path(current_user.id, format: "html"), method: :post %>
             <%= link_to 'No', friendship_path(user, id: "#{current_user.id}", friendship: friends_hash, format: "html"), method: :delete %> #
           </td>
         <% else %>

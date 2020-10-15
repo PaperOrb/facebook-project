@@ -26,4 +26,9 @@ class User < ApplicationRecord
   def sent_friend_requests
     friendships.map { |friendship| friendship.friend unless friendship.confirmed }.compact
   end
+
+  def find_friendship(user)
+    self.friendships.find_by(friend_id: user.id) ||
+    user.friendships.find_by(friend_id: self.id)
+  end
 end

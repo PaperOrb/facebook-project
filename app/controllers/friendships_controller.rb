@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
   # used this guide for learning about setting up friendships: https://smartfunnycool.com/friendships-in-activerecord/
-  before_action :set_friendship, only: [:confirm_friend, :destroy]
+  before_action :set_friendship, only: [:confirm_friend, :remove_friend]
 
   def index
     @friendships = Friendship.all
@@ -31,18 +31,23 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def destroy
-    @friendship.destroy
+  def remove_friend
+    require 'pry'; binding.pry
+    @friendship.confirmed = false
     respond_to do |format|
-      format.html { redirect_to users_path, notice: 'Friendship declined!' }
-      format.json { head :no_content }
+      if @friendship.save
+        format.html { redirect_to users_path, notice: "Remove friend!"  }
+      else
+        format.html { redirect_to users_path, notice: 'Failed to remove friend!' }
+      end
     end
   end
 
   private
 
   def set_friendship
-    @friendship = Friendship.find_by(user_id: friendship_params[:user_id], friend_id: friendship_params[:friend_id])
+    @friendship = find_friendship(User.find(params[:id]))
+    #@friendship = Friendship.find_by(user_id: friendship_params[:user_id], friend_id: friendship_params[:friend_id])
   end
 
   # Only allow a list of trusted parameters through.
