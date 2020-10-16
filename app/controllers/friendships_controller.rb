@@ -32,10 +32,8 @@ class FriendshipsController < ApplicationController
   end
 
   def remove_friend
-    require 'pry'; binding.pry
-    @friendship.confirmed = false
     respond_to do |format|
-      if @friendship.save
+      if @friendship.destroy
         format.html { redirect_to users_path, notice: "Remove friend!"  }
       else
         format.html { redirect_to users_path, notice: 'Failed to remove friend!' }
@@ -46,7 +44,8 @@ class FriendshipsController < ApplicationController
   private
 
   def set_friendship
-    @friendship = find_friendship(User.find(params[:id]))
+    require 'pry'; binding.pry
+    @friendship = current_user.find_friendship(User.find(params[:id]))
     #@friendship = Friendship.find_by(user_id: friendship_params[:user_id], friend_id: friendship_params[:friend_id])
   end
 
