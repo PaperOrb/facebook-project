@@ -1,6 +1,4 @@
-
 <h1>Users</h1>
-
 <table>
 
 
@@ -17,12 +15,12 @@
           <% friends_hash = { user_id: user.id, friend_id: current_user.id } %>
           <td>
             <%= 'Accept friend request?' %>
-            <%= link_to 'Yes / ', confirm_friend_path(current_user.id), method: :post %>
-            <%= link_to 'No', friendship_path(user, id: "#{current_user.id}", friendship: friends_hash, format: "html"), method: :delete %>
+            <%= link_to 'Yes / ', confirm_friend_path(user), method: :post %>
+            <%= link_to 'No', remove_friend_path(user), method: :delete %>
           </td>
         <% else %>
           <% friends_hash = { user_id: current_user.id, friend_id: user.id } %>
-          <td><%= link_to 'Add friend', friendships_path(user), method: :post %></td>
+          <td><%= link_to('Add friend', friendships_path(friendship: friends_hash), id: "add_friend_#{user.id}", method: :post) %></td>
         <% end %>
       </tr>
     <% end %>

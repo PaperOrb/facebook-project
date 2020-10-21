@@ -5,6 +5,7 @@
   <% if current_user.posts.include?(post) %>
     <%= link_to 'Edit', edit_post_path(post) %>
     <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+    <%= "these are some numeric likes. generate the model" %>
     ================================================================================
   <% end %><br><br>
   <%= render 'comments/new_comment', post: post %>

@@ -44,9 +44,7 @@ class FriendshipsController < ApplicationController
   private
 
   def set_friendship
-    require 'pry'; binding.pry
     @friendship = current_user.find_friendship(User.find(params[:id]))
-    #@friendship = Friendship.find_by(user_id: friendship_params[:user_id], friend_id: friendship_params[:friend_id])
   end
 
   # Only allow a list of trusted parameters through.

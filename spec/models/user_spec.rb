@@ -23,14 +23,14 @@ RSpec.describe User, type: :model do
     end
 
     it 'ensures name is unique' do
-      u1 = create(:user, name: '1')
-      u2 = build(:user, name: '1')
+      u1 = create(:user, name: '11111')
+      u2 = build(:user, name: '11111')
       expect(u2.valid?).to eq(false)
     end
 
     it 'ensures email is unique' do
-      u1 = create(:user, email: '1@1.com')
-      u2 = build(:user, email: '1@1.com')
+      u1 = create(:user, email: 'xcvqea2@x.com')
+      u2 = build(:user, email: 'xcvqea2@x.com')
       expect(u2.valid?).to eq(false)
     end
 
