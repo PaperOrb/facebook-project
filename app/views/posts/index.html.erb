@@ -2,10 +2,18 @@
   <h2><%= link_to "#{post.user.name} posts: ", user_path(post.user) %></h2>
   <%= post.body %><br>
 
+  <% like_hash = { user_id: current_user.id, likeable_id: post.id, likeable_type: "Post" }%>
+  <% if current_user.liked?(post) %>
+    <%= link_to("Unlike?", like_path(like: like_hash), method: :delete) %><br>
+  <% else %>
+    <%= link_to("Like", likes_path(like: like_hash), method: :post) %>
+  <% end %>
+
+  <%= "#{post.likes.count} likes" %><br>
+
   <% if current_user.posts.include?(post) %>
     <%= link_to 'Edit', edit_post_path(post) %>
     <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %><br>
-    <%= "these are some numeric likes. generate the model" %>
     ================================================================================
   <% end %><br><br>
   <%= render 'comments/new_comment', post: post %>

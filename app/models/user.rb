@@ -10,8 +10,9 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id" # finds records with you as the friend_id to see friend_requests to you
   # this is how you create a friendship: u1.friendships.create(user_id: u1.id, friend_id: u2.id)
 
-  has_many :posts
-  has_many :comments
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   def friends
     friends_array = friendships.map { |friendship| friendship.friend if friendship.confirmed }
@@ -28,7 +29,11 @@ class User < ApplicationRecord
   end
 
   def find_friendship(user)
-    self.friendships.find_by(friend_id: user.id) ||
+    friendships.find_by(friend_id: user.id) ||
     user.friendships.find_by(friend_id: self.id)
+  end
+
+  def liked?(content)
+    content.likes.find_by(user_id: self.id)
   end
 end
